@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import logo from "../assets/logo1.png";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { Button, Card, Form } from "react-bootstrap";
+
 const SignUp = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -15,7 +17,6 @@ const SignUp = () => {
         email: email,
         password: password,
       });
-      console.log(result);
       if (result.status === 201) {
         localStorage.setItem("user-data", JSON.stringify(result.data));
         navigate("/");
@@ -42,38 +43,52 @@ const SignUp = () => {
     navigate("/");
   }
   return (
-    <div className="register">
-      <img className="logo" src={logo} alt="" />
-      <div className="mb-3">
-        <h1>Sign Up</h1>
-        <input
-          type="text"
-          className="form-control"
-          placeholder="Enter name here...."
-          onChange={handleNameChange}
-        />
-      </div>
-      <div className="mb-3">
-        <input
-          type="email"
-          className="form-control"
-          placeholder="Enter email here...."
-          onChange={handleEmailChange}
-        />
-      </div>
-      <div className="mb-3">
-        <input
-          type="password"
-          className="form-control"
-          placeholder="Enter password here...."
-          onChange={handlePasswordChange}
-        />
-      </div>
-      <div className="mb-3">
-        <button className="btn btn-dark" type="submit" onClick={signUp}>
-          Sign Up
-        </button>
-      </div>
+    <div className="container my-5 d-flex justify-content-center">
+      <Card style={{ width: "25rem" }}>
+        <Card.Header>
+          <h3>Sign Up</h3>
+        </Card.Header>
+        <Card.Img variant="top" src={logo} alt="" />
+        <Card.Body>
+          <Form>
+            <Form.Group className="mb-3">
+              <Form.Control
+                type="text"
+                className="form-control"
+                placeholder="Enter name here...."
+                onChange={handleNameChange}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Control
+                type="email"
+                className="form-control"
+                placeholder="Enter email here...."
+                onChange={handleEmailChange}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Control
+                type="password"
+                className="form-control"
+                placeholder="Enter password here...."
+                onChange={handlePasswordChange}
+              />
+            </Form.Group>{" "}
+            <div className="d-grid gap-2">
+              <Button variant="dark" onClick={signUp}>
+                Sign Up
+              </Button>
+            </div>{" "}
+            <Card.Footer className="my-3">
+              <div>
+                <p>If you already have an account...</p>
+                <NavLink to="/login">Login</NavLink>
+              </div>
+            </Card.Footer>
+          </Form>
+        </Card.Body>
+      </Card>
     </div>
   );
 };
